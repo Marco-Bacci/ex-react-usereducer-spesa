@@ -9,12 +9,26 @@ function App() {
   ];
 
   const [addedProducts, setAddedProducts] = useState([]);
-  console.log(addedProducts);
+
+  const updateProductQuantity = (name, quantity) => {
+    setAddedProducts((curr) =>
+      curr.map((p) => {
+        if (p.name === name) {
+          return {
+            ...p,
+            quantity,
+          };
+        }
+        return p;
+      })
+    );
+  };
 
   function addToCart(product) {
-    const alreadyInCart = addedProducts.some((p) => p.name === product.name);
+    const alreadyInCart = addedProducts.find((p) => p.name === product.name);
 
     if (alreadyInCart) {
+      updateProductQuantity(alreadyInCart.name, alreadyInCart.quantity + 1);
       return;
     }
 
@@ -26,6 +40,11 @@ function App() {
     setAddedProducts((curr) => [...curr, productToAdd]);
   }
 
+  function removeFromCart() {
+    const removeProduct = addedProducts.filter((p) => {
+      return;
+    });
+  }
   return (
     <>
       <h2>PRODOTTI</h2>
@@ -35,6 +54,9 @@ function App() {
             {product.name} - {product.price.toFixed(2)}€
             <button onClick={() => addToCart(product)}>
               Aggiungi al carrello
+            </button>
+            <button onClick={() => removeFromCart(product)}>
+              Rimuovi dal carrello
             </button>
           </li>
         ))}
