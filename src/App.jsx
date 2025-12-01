@@ -45,6 +45,10 @@ function App() {
     setAddedProducts(updatedCart);
   }
 
+  const total = addedProducts.reduce((acc, product) => {
+    return acc + product.price * product.quantity;
+  }, 0);
+
   return (
     <>
       <h2>PRODOTTI</h2>
@@ -73,6 +77,7 @@ function App() {
           </ul>
         </>
       )}
+      <h3>TOTALE: {total.toFixed(2)}€</h3>
     </>
   );
 }
