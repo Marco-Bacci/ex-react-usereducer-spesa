@@ -40,11 +40,11 @@ function App() {
     setAddedProducts((curr) => [...curr, productToAdd]);
   }
 
-  function removeFromCart() {
-    const removeProduct = addedProducts.filter((p) => {
-      return;
-    });
+  function removeFromCart(product) {
+    const updatedCart = addedProducts.filter((p) => p.name !== product.name);
+    setAddedProducts(updatedCart);
   }
+
   return (
     <>
       <h2>PRODOTTI</h2>
